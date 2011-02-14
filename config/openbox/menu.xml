@@ -21,11 +21,11 @@
       <execute>/opt/eclipse/eclipse</execute>
     </action>
     </item>
-    <item label="Minecraft">
-    <action name="Execute">
-      <execute>/home/trevor/bin/minecraft.sh</execute>
-    </action>
-    </item>
+    <!--<item label="Minecraft">-->
+    <!--<action name="Execute">-->
+      <!--<execute>/home/trevor/bin/minecraft.sh</execute>-->
+    <!--</action>-->
+    <!--</item>-->
     <item label="VBox">
     <action name="Execute">
       <execute>sudo /usr/bin/VirtualBox</execute>

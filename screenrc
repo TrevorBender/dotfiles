@@ -1,0 +1,6 @@
+vbell on
+autodetach on
+defscrollback 5000
+startup_message off
+caption always "%w"
+hardstatus alwayslastline "%H %C%a %M %d, %Y Load: %l "
