@@ -1,12 +1,12 @@
 " setup pathogen
 call pathogen#runtime_append_all_bundles()
-call ptahogen#helptags()
+call pathogen#helptags()
 
 " VI Setting:
 "
 " Line Numbers
-"set nu
-set relativenumber
+set nu
+"set relativenumber
 
 " Search Settings
 set ignorecase
