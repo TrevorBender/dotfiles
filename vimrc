@@ -1,9 +1,27 @@
-set nu
+" setup pathogen
+call pathogen#runtime_append_all_bundles()
+call ptahogen#helptags()
+
+" VI Setting:
+"
+" Line Numbers
+"set nu
+set relativenumber
+
+" Search Settings
 set ignorecase
 set smartcase
 set incsearch
+set showmatch
+set hlsearch
+
+" make g the default for :s replaces
+set gdefault
+
+" Color Scheme
 colorscheme blackboard
 
+" Indent settings
 set cindent
 set smartindent
 set autoindent
@@ -11,37 +29,75 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-set guioptions-=m
-set guioptions-=T
+" Text options
+set colorcolumn=85
 
+" gui options (gvim)
+"  no menu
+set guioptions-=m
+"  no toolbar
+set guioptions-=T
+" no left scrollbar
 set guioptions-=Ll
 set guioptions+=Rr
-
+"  copy to window system selection
 set guioptions+=a
-
 set guioptions-=t
 
+" Highlight the current line
 set cursorline
 
+" Set the font
 set guifont=Inconsolata\ Bold\ 9
 
 set tags=~/.tags
 set complete=.,w,b,u,t,i
 set dictionary+=/usr/share/dict/words
 
+" Mappings
+
+" Window movements using C-*
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-nmap <leader>l :set list!<CR>
+" goto tab (using gtk binds <alt-#>)
+map <A-1> 1gt
+map <A-2> 2gt
+map <A-3> 3gt
+map <A-4> 4gt
+map <A-5> 5gt
+map <A-6> 6gt
+map <A-7> 7gt
+map <A-8> 8gt
+map <A-9> 9gt
 
+" change leader to ',' because it's easier to hit
+let mapleader = ","
+
+nmap <leader>v :sp $MYVIMRC<CR>
+
+" \l : toggle visible whitespace
+nmap <leader>l :set list!<CR>
+" \s : toggle spell check
+nmap <leader>s :set spell!<CR>
+
+" \f : use par to form
+nmap <leader>f vip!par-format<CR>
+
+nmap <leader>h :noh<CR>
+
+" \ew : open from current dir
 map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
+" \es : open in new window from current dir
 map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+" \ev : open in new vertical window from current dir
 map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+" \et : open in new tab from current dir
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
-" Only do this part when compiled with support for autocommands
+" Only do this part when compiled with support for auto commands
 if has("autocmd")
     filetype on
 
@@ -49,6 +105,9 @@ if has("autocmd")
 
     " Treat .jack files as java
     autocmd BufNewFile,BufRead *.jack setfiletype java
+
+    " Source the vimrc file after saving it
+    autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
 " set up tab labels with tab number, buffer name, number of windows

@@ -1,0 +1,8 @@
+" Add tab numbers
+set guioptions+=n
+
+" <leader> = ','
+set mapleader=","
+
+" ,s : search google
+nmap <leader>s :tabopen google 
