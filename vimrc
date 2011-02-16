@@ -48,7 +48,7 @@ set guioptions-=t
 set cursorline
 
 " Set the font
-set guifont=Inconsolata\ Bold\ 9
+set guifont=Inconsolata\ Regular\ 9
 
 set tags=~/.tags
 set complete=.,w,b,u,t,i
