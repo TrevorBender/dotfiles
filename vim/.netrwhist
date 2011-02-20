@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/storage/sandbox/android/system'
+let g:netrw_dirhist_2='/storage/sandbox/android/system/extras'
+let g:netrw_dirhist_3='/storage/sandbox/android/system/extras/sound'
+let g:netrw_dirhist_4='/storage/sandbox/android/system/extras'
+let g:netrw_dirhist_5='/storage/sandbox/android/system'
+let g:netrw_dirhist_6='/usr/share/vim/vim73/doc'

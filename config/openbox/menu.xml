@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openbox_menu>
 	<menu id="root-menu" label="OpenBox 3">
+    <!--Terminal-->
     <item label="Terminal">
     <action name="Execute">
       <execute>/home/trevor/bin/terminal.sh</execute>
     </action>
     </item>
+    <!--Chrome-->
     <item label="Chrome">
     <action name="Execute">
       <execute>chromium</execute>
     </action>
     </item>
+    <!--Firefox-->
+    <item label="FireFox"> <action name="Execute">
+        <execute>firefox</execute>
+    </action> </item>
     <item label="IntelliJ">
     <action name="Execute">
       <execute>/home/trevor/bin/idea.sh</execute>

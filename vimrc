@@ -86,6 +86,7 @@ nmap <leader>s :set spell!<CR>
 " \f : use par to form
 nmap <leader>f vip!par-format<CR>
 
+" \h : clear search highlights
 nmap <leader>h :noh<CR>
 
 " \ew : open from current dir
@@ -96,6 +97,9 @@ map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 " \et : open in new tab from current dir
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
 
 " Only do this part when compiled with support for auto commands
 if has("autocmd")

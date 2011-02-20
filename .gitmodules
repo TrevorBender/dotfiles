@@ -4,6 +4,9 @@
 [submodule "vim/bundle/nerdcommenter"]
 	path = vim/bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/bundle/unimpaired"]
+	path = vim/bundle/unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
 [submodule "vim/bundle/matchit"]
 	path = vim/bundle/matchit
-	url = git://github.com/edsono/vim-matchit.git
+	url = git://github.com/tsaleh/vim-matchit.git

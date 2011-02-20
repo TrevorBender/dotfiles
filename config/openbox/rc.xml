@@ -227,12 +227,7 @@
         <desktop>yes</desktop>
       </action>
     </keybind>
-    <!-- Keybindings for running applications -->
-    <!--
-    <keybind key="A-k">
-      <action name="Move"/>
-    </keybind>
-    -->
+    <!--Resize window (by 5 pixels)-->
     <keybind key="W-A-h">
       <action name="ResizeRelative">
         <right>-5</right>
@@ -263,6 +258,7 @@
         <command>/home/trevor/bin/terminal.sh</command>
       </action>
     </keybind>
+    <!--Alt - a : window movements-->
     <keybind key="A-a">
       <keybind key="m">
         <action name="ToggleMaximizeFull"/>
@@ -311,6 +307,7 @@
           <follow>yes</follow>
         </action>
       </keybind>
+      <!--Grow window-->
       <keybind key="g" chroot="true">
         <keybind key="h">
           <action name="GrowToEdgeWest"/>
@@ -337,6 +334,48 @@
         </keybind>
         <keybind key="j">
           <action name="MoveToEdgeSouth"/>
+        </keybind>
+      </keybind>
+      <!--TODO: split window-->
+      <!--Size: 1920x1200-->
+      <!--Width = 1920 / 2 = 960-->
+      <!--Height = 1200 / 2 - 30 = 600 - 30 = 570-->
+      <keybind key="q">
+        <keybind key="h">
+            <action name="UnmaximizeFull"/>
+            <action name="MaximizeVert"/>
+            <action name="MoveResizeTo">
+                <x>0</x>
+                <y>0</y>
+                <width>960</width>
+            </action>
+        </keybind>
+        <keybind key="l">
+            <action name="UnmaximizeFull"/>
+            <action name="MaximizeVert"/>
+            <action name="MoveResizeTo">
+                <x>960</x>
+                <y>0</y>
+                <width>960</width>
+            </action>
+        </keybind>
+        <keybind key="k">
+            <action name="UnmaximizeFull"/>
+            <action name="MaximizeHorz"/>
+            <action name="MoveResizeTo">
+                <x>0</x>
+                <y>0</y>
+                <height>570</height>
+            </action>
+        </keybind>
+        <keybind key="j">
+            <action name="UnmaximizeFull"/>
+            <action name="MaximizeHorz"/>
+            <action name="MoveResizeTo">
+                <x>0</x>
+                <y>570</y>
+                <height>570</height>
+            </action>
         </keybind>
       </keybind>
       <!--
