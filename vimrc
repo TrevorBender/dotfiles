@@ -114,6 +114,11 @@ if has("autocmd")
     autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
+if has('gui_running')
+    set lines=40
+    set columns=95
+endif
+
 " set up tab labels with tab number, buffer name, number of windows
 function! GuiTabLabel()
   let label = ''
