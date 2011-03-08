@@ -5,4 +5,6 @@ set guioptions+=n
 set mapleader=","
 
 " ,s : search google
-nmap <leader>s :tabopen google 
+nmap <leader>st :tabopen google 
+nmap <leader>se :open google 
+nmap <leader>sw :winopen google 
