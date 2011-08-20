@@ -156,3 +156,8 @@ function! GuiTabLabel()
 endfunction
 
 set guitablabel=%{GuiTabLabel()}
+
+" enable stuff
+syntax on
+filetype plugin on
+filetype indent on

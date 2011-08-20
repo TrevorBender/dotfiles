@@ -34,7 +34,7 @@
     <!--</item>-->
     <item label="VBox">
     <action name="Execute">
-      <execute>sudo /usr/bin/VirtualBox</execute>
+      <execute>VirtualBox</execute>
     </action>
     </item>
     <item label="GMPC">
