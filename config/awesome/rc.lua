@@ -7,6 +7,7 @@ require("beautiful")
 -- Notification library
 require("naughty")
 require("revelation.lua")
+require("vicious")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -27,8 +28,8 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
+    awful.layout.suit.floating,
 --    awful.layout.suit.tile.left,
 --    awful.layout.suit.tile.bottom,
 --    awful.layout.suit.tile.top,
@@ -47,7 +48,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ 1, 2, 3, 4, }, s, layouts[1])
 end
 -- }}}
 
@@ -60,10 +61,20 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+require('freedesktop.utils')
+freedesktop.utils.terminal = terminal
+freedesktop.utils.icon_theme = 'tango'
+require('freedesktop.menu')
+menu_items = freedesktop.menu.new()
+table.insert(menu_items, { "awesome", myawesomemenu, beautiful.awesome_icon })
+table.insert(menu_items, { "open terminal", terminal, freedesktop.utils.lookup_icon({icon = "lxterminal"}) })
+
+mymainmenu = awful.menu.new({ items = menu_items })
+
+--mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    --{ "open terminal", terminal }
+                                  --}
+                        --})
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
@@ -136,21 +147,65 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
+
+    -- CPU widget
+    cpuwidget = widget({ type = 'textbox' })
+    vicious.register(cpuwidget, vicious.widgets.cpu, 
+    function (widget, args)
+        local text
+        for i=1,#args do
+            if args[i] > 50 then
+                local color = gradient("#AECF96", "#FF5656", 50, 100, args[i])
+                args[i] = string.format("<span color='%s'>%s</span>", color, args[i])
+            end
+            args[i] = string.format("%02d", args[i])
+            if i > 2 then text = text.."|"..args[i].."%"
+            else text = "["..args[i].."%" end
+        end
+        text = text.."]"
+        return text
+    end
+    )
+
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
-            mylauncher,
+            --mylauncher,
             mytaglist[s],
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
         mytextclock,
+        cpuwidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
 end
+
+function gradient(color, to_color, min, max, value)
+    local function color2dec (c)
+        return tonumber(c:sub(2,3),16), tonumber(c:sub(4,5),16), tonumber(c:sub(6,7),16)
+    end
+
+    local factor = 0
+    if (value >= max) then
+        factor = 1
+    elseif (value > min) then
+        factor = (value - min) / (max - min)
+    end
+
+    local red, green, blue = color2dec(color)
+    local to_red, to_green, to_blue = color2dec(to_color)
+
+    red = red + (factor * (to_red - red))
+    green = green + (factor * (to_green - green))
+    blue = blue + (factor * (to_blue - blue))
+
+    return string.format("#%02x%02x%02x", red, green, blue)
+end
+
 -- }}}
 
 -- {{{ Mouse bindings
@@ -204,8 +259,8 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Shift"   }, "l",     function () awful.client.incwfact(-0.05)  end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.client.incwfact( 0.05)  end),
-    --awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
-    --awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
+    awful.key({ modkey, "Control", "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
+    awful.key({ modkey, "Control", "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
 
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
@@ -222,6 +277,8 @@ globalkeys = awful.util.table.join(
                 "' -sf '" .. beautiful.fg_focus .. "'")
         end
     ),
+
+    awful.key({ modkey, "Control", "Shift" }, "l", function () awful.util.spawn("slock") end),
 
     awful.key({ modkey }, "x",
               function ()
