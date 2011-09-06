@@ -10,6 +10,8 @@ require("revelation.lua")
 require("vicious")
 require("gradient")
 
+log_debug = false
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init(awful.util.getdir("config") .. "/zenburn.lua")
@@ -326,18 +328,57 @@ end
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
+extra_tags = {}
+function tag_is_selected(screen, i)
+    local found = false
+    local selected = awful.tag.selectedlist(screen)
+    local found = false
+    for i_, v in pairs(selected) do
+        v = awful.tag.getidx(v)
+        if v == i then
+            found = true
+            break
+        end
+    end
+    return found
+end
+
 for i = 1, keynumber do
+    extra_tags[i] = {}
     globalkeys = awful.util.table.join(globalkeys,
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = mouse.screen
-                        if tags[screen][i] then
-                            awful.tag.viewonly(tags[screen][i])
+                        local curtag = tags[screen][i]
+                        if curtag then
+                            awful.tag.viewonly(curtag)
+                        end
+                        for tag,v in pairs(extra_tags[i]) do 
+                            if v then
+                                awful.tag.viewtoggle(tags[screen][tag])
+                            end
                         end
                   end),
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = mouse.screen
+                      local curtag = awful.tag.getidx(awful.tag.selected(screen))
+                      if log_debug then print("curtag="..curtag) end
+                      local selected = awful.tag.selectedlist(screen)
+                      local found = false
+                      for i_,v in ipairs(selected) do 
+                          v = awful.tag.getidx(v)
+                          if v == i then
+                              found = true
+                              break
+                          end
+                      end
+                      if log_debug then print("found="..tostring(found)) end
+                      if found then
+                          extra_tags[curtag][i] = false
+                      else
+                          extra_tags[curtag][i] = true
+                      end
                       if tags[screen][i] then
                           awful.tag.viewtoggle(tags[screen][i])
                       end
