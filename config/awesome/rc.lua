@@ -161,11 +161,8 @@ for s = 1, screen.count() do
     function (widget, args)
         local text
         for i=1,#args do
-            if args[i] > 50 then
-                local color = gradient("#AECF96", "#FF5656", 50, 100, args[i])
-                args[i] = string.format("<span color='%s'>%s</span>", color, args[i])
-            end
-            args[i] = string.format("%02d", args[i])
+            local color = gradient("#AECF96", "#FF5656", 50, 100, args[i])
+            args[i] = string.format("<span color='%s'>%s</span>", color, args[i])
             if i > 2 then text = text.."|"..args[i].."%"
             else text = "["..args[i].."%" end
         end
@@ -203,6 +200,13 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
+
+-- move mouse to left middle
+local safeCoords = {x=0, y=600} -- left, middle
+local function moveMouse(m_x, m_y)
+    mouse.coords({x=m_x, y=m_y})
+end
+
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -274,8 +278,11 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
 
-    awful.key({ modkey, "Control"}, "Escape", function()
+    awful.key({ modkey, "Control" }, "Escape", function()
       awful.util.spawn("xdotool getactivewindow mousemove --window %1 0 0 click --clearmodifiers 2")
+    end),
+    awful.key({ modkey, "Control" }, "m", function ()
+        moveMouse(safeCoords.x, safeCoords.y)
     end)
 )
 
