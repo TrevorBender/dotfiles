@@ -412,3 +412,13 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- {{{ Extras
+
+-- disable startup-notifications globally
+local oldspawn = awful.util.spawn
+awful.util.spawn = function (s)
+    oldspawn(s, false)
+end
+
+-- }}}
