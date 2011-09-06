@@ -201,8 +201,8 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 
--- move mouse to left middle
-local safeCoords = {x=0, y=600} -- left, middle
+-- move mouse to bottom right
+local safeCoords = {x=960, y=0} -- bottom, right
 local function moveMouse(m_x, m_y)
     mouse.coords({x=m_x, y=m_y})
 end
