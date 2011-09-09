@@ -335,7 +335,9 @@ end
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-extra_tags = {}
+
+extra_tags = {} -- save the persistent mapping here: extra_tags[from][to] = boolean
+cur_sel_tag = 1 -- save the currently selected tag id
 function tag_is_selected(screen, i)
     local found = false
     local selected = awful.tag.selectedlist(screen)
@@ -357,32 +359,40 @@ for i = 1, keynumber do
                   function ()
                         local screen = mouse.screen
                         local curtag = tags[screen][i]
+                        --if log_debug then print("CHANGE("..tostring(i)..")") end
                         if curtag then
+                            cur_sel_tag = awful.tag.getidx(curtag)
                             awful.tag.viewonly(curtag)
-                        end
-                        for tag,v in pairs(extra_tags[i]) do 
-                            if v then
-                                awful.tag.viewtoggle(tags[screen][tag])
+                            for tag,v in pairs(extra_tags[i]) do 
+                                --if log_debug then print("extra_tag="..tostring(tag)) end
+                                if v then
+                                    --if log_debug then print("enable:"..tostring(tag)) end
+                                    awful.tag.viewtoggle(tags[screen][tag])
+                                end
                             end
                         end
                   end),
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = mouse.screen
-                      local curtag = awful.tag.getidx(awful.tag.selected(screen))
-                      if log_debug then print("curtag="..curtag) end
+                      local curtag = cur_sel_tag
+                      --if log_debug then print("ADD("..tostring(curtag)..", "..i..")") end
                       local selected = awful.tag.selectedlist(screen)
                       local found = false
                       for i_,v in ipairs(selected) do 
+                          --if log_debug then print("selected="..tostring(i_)) end
                           v = awful.tag.getidx(v)
                           if v == i then
                               found = true
                               break
                           end
                       end
-                      if log_debug then print("found="..tostring(found)) end
+                      --if log_debug then print("found="..tostring(found)) end
                       if found then
-                          extra_tags[curtag][i] = false
+                          --if log_debug then print("extra_tags="..tostring(extra_tags[curtag][i])) end
+                          if extra_tags[curtag][i] then
+                              extra_tags[curtag][i] = false
+                          end
                       else
                           extra_tags[curtag][i] = true
                       end
