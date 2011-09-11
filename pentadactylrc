@@ -8,3 +8,6 @@ set mapleader=","
 nmap <leader>st :tabopen google 
 nmap <leader>se :open google 
 nmap <leader>sw :winopen google 
+
+set passkeys+=www.google.com/reader:nplmsSt
+set passkeys+=www.feedly.com:jknpovmxsgp/

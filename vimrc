@@ -48,9 +48,9 @@ set guioptions-=t
 set cursorline
 
 " Set the font
-set guifont=Inconsolata\ Regular\ 9
+set guifont=Inconsolata\ Medium\ 10
 
-set tags=~/.tags
+set tags=./tags,~/.tags
 set complete=.,w,b,u,t,i
 set dictionary+=/usr/share/dict/words
 
@@ -75,6 +75,7 @@ map <A-9> 9gt
 
 " change leader to ',' because it's easier to hit
 let mapleader = ","
+let localleader = "\\"
 
 nmap <leader>v :sp $MYVIMRC<CR>
 
