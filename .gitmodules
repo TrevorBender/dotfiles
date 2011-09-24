@@ -13,9 +13,9 @@
 [submodule "vim/bundle/surround"]
 	path = vim/bundle/surround
 	url = https://github.com/tpope/vim-surround.git
-[submodule "vim/bundle/colorizer"]
-	path = vim/bundle/colorizer
-	url = git://github.com/lilydjwg/colorizer.git
 [submodule "vim/bundle/threesome"]
 	path = vim/bundle/threesome
 	url = git://github.com/sjl/threesome.vim.git
+[submodule "vim/bundle/manpageview"]
+	path = vim/bundle/manpageview
+	url = git://github.com/vim-scripts/ManPageView.git

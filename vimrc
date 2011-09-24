@@ -19,7 +19,22 @@ set hlsearch
 set gdefault
 
 " Color Scheme
-colorscheme blackboard
+"colorscheme molokai
+if (!has('gui_running'))
+    echo "console"
+    "set t_Co=256
+    if (&t_Co == 256)
+        echo "256 colors"
+    endif
+    if (&t_Co == 88)
+        echo "88 colors"
+    endif
+endif
+if ((&t_Co == 256 || &t_Co == 88) && !has('gui_running'))
+    GuiColorScheme molokai
+else
+    colorscheme molokai
+endif
 
 " Indent settings
 set cindent
@@ -39,7 +54,9 @@ set guioptions-=m
 set guioptions-=T
 " no left scrollbar
 set guioptions-=Ll
-set guioptions+=Rr
+" no right scrollbar
+set guioptions-=r
+set guioptions-=R
 "  copy to window system selection
 set guioptions+=a
 set guioptions-=t
@@ -48,7 +65,7 @@ set guioptions-=t
 set cursorline
 
 " Set the font
-set guifont=Inconsolata\ Medium\ 10
+set guifont=Inconsolata\ Medium\ 12
 
 set tags=./tags,~/.tags
 set complete=.,w,b,u,t,i
