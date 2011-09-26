@@ -15,27 +15,19 @@ set incsearch
 set showmatch
 set hlsearch
 
+" Wildmenu
+set wildmode=list,longest,full
+set wildmenu
+
 " make g the default for :s replaces
 set gdefault
 
 " Color Scheme
 "colorscheme molokai
 if (!has('gui_running'))
-    echo "console"
-    "set t_Co=256
-    if (&t_Co == 256)
-        echo "256 colors"
-    endif
-    if (&t_Co == 88)
-        echo "88 colors"
-    endif
+    set t_Co=256
 endif
-if ((&t_Co == 256 || &t_Co == 88) && !has('gui_running'))
-    GuiColorScheme molokai
-else
-    colorscheme molokai
-endif
-
+colorscheme molokai
 " Indent settings
 set cindent
 set smartindent
@@ -65,7 +57,7 @@ set guioptions-=t
 set cursorline
 
 " Set the font
-set guifont=Inconsolata\ Medium\ 12
+set guifont=Inconsolata\ Medium\ 10
 
 set tags=./tags,~/.tags
 set complete=.,w,b,u,t,i
