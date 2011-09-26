@@ -1,0 +1,12 @@
+
+*background: #1b1d1e
+*foreground: #AAAAAA
+
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgba
+Xft.hinting: true
+Xft.hintstyle: hintfull
+
+xterm*faceName: Inconsolata-10
+xterm*dynamicColors: true
