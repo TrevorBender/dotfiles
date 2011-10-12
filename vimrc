@@ -15,6 +15,10 @@ set incsearch
 set showmatch
 set hlsearch
 
+" Statusline
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set laststatus=2
+
 " Wildmenu
 set wildmode=list,longest,full
 set wildmenu
@@ -24,9 +28,9 @@ set gdefault
 
 " Color Scheme
 "colorscheme molokai
-if (!has('gui_running'))
-    set t_Co=256
-endif
+"if (!has('gui,_running'))
+"    set t_Co=256
+"endif
 colorscheme molokai
 " Indent settings
 set cindent
