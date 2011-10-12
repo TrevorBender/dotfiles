@@ -1,5 +1,6 @@
 " Add tab numbers
 set guioptions+=n
+set guioptions-=r
 
 " <leader> = ','
 set mapleader=","
