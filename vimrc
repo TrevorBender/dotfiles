@@ -31,7 +31,8 @@ set gdefault
 "if (!has('gui,_running'))
 "    set t_Co=256
 "endif
-colorscheme molokai
+"colorscheme molokai
+"set background=light
 " Indent settings
 set cindent
 set smartindent
@@ -131,6 +132,8 @@ endif
 if has('gui_running')
     set lines=40
     set columns=95
+    colorscheme solarized
+    set background=light
 endif
 
 " set up tab labels with tab number, buffer name, number of windows
