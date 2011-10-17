@@ -19,3 +19,6 @@
 [submodule "vim/bundle/manpageview"]
 	path = vim/bundle/manpageview
 	url = git://github.com/vim-scripts/ManPageView.git
+[submodule "vim/bundle/camelcase"]
+	path = vim/bundle/camelcase
+	url = git://github.com/bkad/CamelCaseMotion.git
