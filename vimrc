@@ -113,6 +113,17 @@ map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 " \et : open in new tab from current dir
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
+" Ranger integration
+fun! RangerChooser()
+    silent !ranger --choosefile=/tmp/choosenfile $([ -z '%' ] && echo -n . || dirname %)
+    if filereadable('/tmp/choosenfile')
+        exec 'edit ' . system('cat /tmp/choosenfile')
+        call system('rm /tmp/choosenfile')
+    endif
+    redraw!
+endfun
+map <leader>r :call RangerChooser()<CR>
+
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
