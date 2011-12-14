@@ -20,11 +20,14 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set laststatus=2
 
 " Wildmenu
-set wildmode=list,longest,full
+set wildmode=longest,full
 set wildmenu
 
 " make g the default for :s replaces
 set gdefault
+
+" ctags
+set tags=./tags;/
 
 " Color Scheme
 "colorscheme molokai
@@ -50,7 +53,8 @@ set guioptions-=m
 "  no toolbar
 set guioptions-=T
 " no left scrollbar
-set guioptions-=Ll
+set guioptions-=L
+set guioptions-=l
 " no right scrollbar
 set guioptions-=r
 set guioptions-=R
@@ -62,7 +66,7 @@ set guioptions-=t
 set cursorline
 
 " Set the font
-set guifont=Inconsolata\ Medium\ 10
+set guifont=Inconsolata\ Medium\ 11
 
 set tags=./tags,~/.tags
 set complete=.,w,b,u,t,i
@@ -113,9 +117,16 @@ map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 " \et : open in new tab from current dir
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
+" quickfix maps
+map <leader>cn :cn<CR>
+map <leader>cp :cp<CR>
+
+" ctags maps
+map <leader>/ :ta /
+
 " Ranger integration
 fun! RangerChooser()
-    silent !ranger --choosefile=/tmp/choosenfile $([ -z '%' ] && echo -n . || dirname %)
+    silent !ranger --choosefile=/tmp/choosenfile $([ -z '%' ] && echo -n '.' || dirname %)
     if filereadable('/tmp/choosenfile')
         exec 'edit ' . system('cat /tmp/choosenfile')
         call system('rm /tmp/choosenfile')
@@ -138,6 +149,8 @@ if has("autocmd")
 
     " Source the vimrc file after saving it
     autocmd bufwritepost .vimrc source $MYVIMRC
+
+    autocmd bufwritepost *.c,*.h silent! !ctags -R * &
 endif
 
 if has('gui_running')
@@ -189,3 +202,18 @@ set guitablabel=%{GuiTabLabel()}
 syntax on
 filetype plugin on
 filetype indent on
+
+" cscope integration
+"if has("cscope")
+    "set cprg=/usr/bin/cscope
+    "set csto=0
+    "set cst
+    "set nocsverb
+    " add any database in current directory
+    "if filereadable("cscope.out")
+        "cs add cscope.txt
+        " else add database pointed to by environment
+    "elseif $CSCOPE_DB != ""
+        "cs add $CSCOPE_DB
+    "endif
+"endif

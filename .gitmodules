@@ -22,3 +22,6 @@
 [submodule "vim/bundle/camelcase"]
 	path = vim/bundle/camelcase
 	url = git://github.com/bkad/CamelCaseMotion.git
+[submodule "vim/bundle/cctree"]
+	path = vim/bundle/cctree
+	url = git://github.com/vim-scripts/CCTree.git
