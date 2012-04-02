@@ -5,10 +5,9 @@ set guioptions-=r
 " <leader> = ','
 set mapleader=","
 
-" ,s : search google
-"nmap <leader>st :tabopen google 
-"nmap <leader>se :open google 
-nmap <leader>sw :winopen google 
+nmap <leader>sw :winopen duckduckgo 
+nnoremap s :open duckduckgo 
+nnoremap S :tabopen duckduckgo 
 
 "set passkeys+=www.google.com/reader:nplmsSt
 "set passkeys+=www.feedly.com:jknpovmxsgp/
