@@ -150,7 +150,7 @@ nnoremap <leader>cp :cp<CR>
 nnoremap <leader>/ :ta /
 
 " Make!
-nnoremap <leader>m :make<CR>
+nnoremap <leader>m :silent make<CR>
 
 " Ranger integration
 fun! RangerChooser()
