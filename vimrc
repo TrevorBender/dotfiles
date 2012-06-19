@@ -29,6 +29,7 @@ set laststatus=2
 " Wildmenu
 set wildmode=longest,full
 set wildmenu
+set wildignore+=*.class,.git,target/**,tags
 
 " G netrw browser settings
 let g:netrw_liststyle=3
@@ -253,3 +254,13 @@ filetype indent on
 au Bufenter *.hs compiler ghc
 
 let g:haddock_browser = "firefox"
+
+let g:ctrlp_arg_map = 1
+
+"<leader>cc clears quickfix list
+function! ClearQuickFixList()
+    call setqflist([])
+    cclose
+endfunc
+command! ClearQuickFixList call ClearQuickFixList()
+nnoremap <leader>cq :ClearQuickFixList<CR>

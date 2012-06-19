@@ -38,7 +38,7 @@ source $ZSH/oh-my-zsh.sh
 unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
-export PATH="~/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 alias pd=pushd
 alias td=popd
@@ -52,3 +52,6 @@ alias ts="tmux new-s -s"
 alias sl='screen -ls'
 alias sa='screen -r'
 alias ss='screen -S'
+
+function gitroot() { cd $(git root) ; }
+alias lh='ls -lh'
