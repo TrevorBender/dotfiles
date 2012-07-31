@@ -184,6 +184,9 @@ if has("autocmd")
     " glsl
     autocmd BufNewFile,BufRead *.vert set syntax=glsl
     autocmd BufNewFile,BufRead *.frag set syntax=glsl
+    
+    " Haskell
+    au Bufenter *.hs compiler ghc
 endif
 
 if has('gui_running')
@@ -251,7 +254,6 @@ filetype indent on
     "endif
 "endif
 
-au Bufenter *.hs compiler ghc
 
 let g:haddock_browser = "firefox"
 
@@ -264,3 +266,12 @@ function! ClearQuickFixList()
 endfunc
 command! ClearQuickFixList call ClearQuickFixList()
 nnoremap <leader>cq :ClearQuickFixList<CR>
+
+"Haskell ctags
+function! HaskellCtags()
+    ! echo ":ctags" | ghci -v0 %
+endfunc
+command! HaskellCtags call HaskellCtags()
+
+
+

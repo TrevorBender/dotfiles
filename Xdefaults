@@ -8,7 +8,7 @@ Xft.rgba: rgba
 Xft.hinting: true
 Xft.hintstyle: hintfull
 
-xterm*faceName: Inconsolata-10
+xterm*faceName: Inconsolata-9
 xterm*dynamicColors: true
 
 !! drop in Solarized colorscheme for Xresources/Xdefaults
