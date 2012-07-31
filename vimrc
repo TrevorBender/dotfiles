@@ -147,6 +147,9 @@ noremap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <leader>cn :cn<CR>
 nnoremap <leader>cp :cp<CR>
 
+" New tab
+nnoremap <leader>T :tabe<CR>
+
 " ctags maps
 nnoremap <leader>/ :ta /
 
