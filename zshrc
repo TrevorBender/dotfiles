@@ -57,4 +57,6 @@ alias ss='screen -S'
 function gitroot() { cd $(git root) ; }
 alias lh='ls -lh'
 
+export HADOOP_HOME=$HOME/sw/hadoop
+
 alias backlight=/usr/local/share/backlight
