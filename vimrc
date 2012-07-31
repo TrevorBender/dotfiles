@@ -277,5 +277,4 @@ function! HaskellCtags()
 endfunc
 command! HaskellCtags call HaskellCtags()
 
-
-
+let g:Powerline_symbols='fancy'
