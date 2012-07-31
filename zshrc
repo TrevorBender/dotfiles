@@ -39,6 +39,7 @@ unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 export PATH="$HOME/bin:$PATH"
+export PATH="$PATH:$HOME/sw/android-sdk-linux/tools"
 
 alias pd=pushd
 alias td=popd
@@ -55,3 +56,5 @@ alias ss='screen -S'
 
 function gitroot() { cd $(git root) ; }
 alias lh='ls -lh'
+
+alias backlight=/usr/local/share/backlight

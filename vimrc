@@ -52,7 +52,8 @@ if (!has('gui,_running'))
     colorscheme solarized
 endif
 "colorscheme molokai
-"set background=light
+set background=dark
+"
 " Indent settings
 set cindent
 set smartindent
@@ -190,7 +191,7 @@ if has('gui_running')
     set lines=40
     set columns=95
     colorscheme solarized
-    set background=light
+    set background=dark
 endif
 
 " set up tab labels with tab number, buffer name, number of windows
