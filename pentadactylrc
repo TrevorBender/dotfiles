@@ -4,7 +4,7 @@ set guioptions-=n
 set guioptions-=r
 set guioptions-=b
 
-set showtabline=never
+"set showtabline=never
 
 " <leader> = ','
 "set mapleader=","

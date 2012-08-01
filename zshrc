@@ -40,6 +40,7 @@ bindkey -v
 # End of lines configured by zsh-newuser-install
 export PATH="$HOME/bin:$PATH"
 export PATH="$PATH:$HOME/sw/android-sdk-linux/tools"
+export PATH="$PATH:$HOME/sw/grails/bin"
 
 alias pd=pushd
 alias td=popd
@@ -58,5 +59,7 @@ function gitroot() { cd $(git root) ; }
 alias lh='ls -lh'
 
 export HADOOP_HOME=$HOME/sw/hadoop
+
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64
 
 alias backlight=/usr/local/share/backlight
