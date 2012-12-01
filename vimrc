@@ -52,7 +52,7 @@ if (!has('gui,_running'))
     colorscheme solarized
 endif
 "colorscheme molokai
-"set background=light
+set background=light
 " Indent settings
 set cindent
 set smartindent
@@ -187,6 +187,8 @@ if has("autocmd")
     " glsl
     autocmd BufNewFile,BufRead *.vert set syntax=glsl
     autocmd BufNewFile,BufRead *.frag set syntax=glsl
+
+    autocmd BufNewFile,BufRead *.flex set syntax=lex
     
     " Haskell
     au Bufenter *.hs compiler ghc
