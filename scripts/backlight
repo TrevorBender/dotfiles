@@ -1,0 +1,80 @@
+#!/bin/bash
+
+path="/sys/class/backlight/intel_backlight"
+# alternative interface (0 < x < 10)
+#path="/sys/class/backlight/acpi_video0/"
+
+# max should be 4296
+max=$(cat ${path}/max_brightness)
+
+step=$(($max/10))
+# for a value smaller than treshold, the steps are smaller for a more accurate setting at low intensity
+treshold=$((2*$step))
+previous=$(cat ${path}/brightness)
+
+function commit {
+	if [[ $1 = [0-9]* ]]
+	then 
+		if [[ $1 -gt $max ]]
+		then 
+			next=$max
+		elif [[ $1 -lt 0 ]]
+		then 
+			next=0
+		else 
+			next=$1
+		fi
+		echo $next >> ${path}/brightness
+		exit 0
+	else 
+		exit 1
+	fi
+}
+
+cmd="$1"
+if [[ $# -eq 0 ]] ; then
+    cmd="show"
+fi
+
+case "$cmd" in
+ up)
+	if [[ $previous -le $treshold ]]
+	then 
+	    step=$(($step/4))
+	fi
+	commit $(($previous + $step))
+   ;;
+ down)
+	if [[ $previous -le $treshold ]]
+	then 
+	    step=$(($step/4))
+	fi
+	commit $(($previous - $step))
+   ;;
+ max)
+	 commit $max
+   ;;
+ off)
+	 commit 0
+   ;;
+ show)
+	 echo $previous
+   ;;
+ night)
+	 commit $(($max/4)) 
+ 	 ;;
+ allowusers)
+	 # Allow members of users group to change brightness
+	 sudo chgrp trevor ${path}/brightness
+	 sudo chmod g+w ${path}/brightness
+   ;;
+ disallowusers)
+	 # Disallow members of users group to change brightness
+	 sudo chgrp root ${path}/brightness
+	 sudo chmod g-w ${path}/brightness
+   ;;
+ *)
+	 commit	$1
+esac
+
+exit 0

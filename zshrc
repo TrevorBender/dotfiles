@@ -39,7 +39,7 @@ unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 export PATH="$HOME/bin:$PATH"
-alias grails=~/sw/grails/bin/grails
+export PATH="$PATH:$HOME/sw/grails/bin"
 
 alias pd=pushd
 alias td=popd

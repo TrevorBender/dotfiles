@@ -4,5 +4,6 @@ set guioptions+=n
 set guioptions-=r
 set guioptions-=b
 
+"set showtabline=never
 nmap s :open google 
 nmap S :tabopen google 
