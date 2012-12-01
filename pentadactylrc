@@ -1,16 +1,8 @@
 " Add tab numbers
 
-set guioptions-=n
+set guioptions+=n
 set guioptions-=r
 set guioptions-=b
 
-set showtabline=never
-
-" <leader> = ','
-"set mapleader=","
-
 nmap s :open google 
 nmap S :tabopen google 
-
-"set passkeys+=www.google.com/reader:nplmsSt
-"set passkeys+=www.feedly.com:jknpovmxsgp/
