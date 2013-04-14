@@ -1,9 +1,8 @@
 " Add tab numbers
-
 set guioptions+=n
 set guioptions-=r
 set guioptions-=b
+iabbrev @@ Trevor.Bender@gmail.com
 
-"set showtabline=never
 nmap s :open google 
 nmap S :tabopen google 

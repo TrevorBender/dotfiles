@@ -27,8 +27,6 @@ Note: All of the commands described below are only available while editing
   also provides a means to auto update the eclipse classpath when
   saving changes to your ivy.xml.
 
-*:NewSrcEntry*
-
 - :NewSrcEntry <dir> [<dir> ...] - Adds a new entry for one or more
   source code directories relative to the project's root directory.
 
@@ -39,8 +37,6 @@ Note: All of the commands described below are only available while editing
 
   This command supports command completion of directories relative to
   the .classpath file.
-
-*:NewProjectEntry*
 
 - :NewProjectEntry <project> [<project> ...] - Adds a new entry for
   one or more dependencies on other projects.
