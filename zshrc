@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -39,6 +39,7 @@ unsetopt beep
 bindkey -v
 # End of lines configured by zsh-newuser-install
 export PATH="$HOME/bin:$PATH"
+alias grails=~/sw/grails/bin/grails
 
 alias pd=pushd
 alias td=popd
@@ -56,4 +57,4 @@ alias ss='screen -S'
 function gitroot() { cd $(git root) ; }
 alias lh='ls -lh'
 
-export HADOOP_HOME=$HOME/sw/hadoop
+#export HADOOP_HOME=$HOME/sw/hadoop

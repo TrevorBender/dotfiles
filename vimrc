@@ -206,6 +206,10 @@ augroup filetype_glsl
     autocmd BufNewFile,BufRead *.frag set syntax=glsl
 augroup END
 
+augroup filetype_lex
+    autocmd BufNewFile,BufRead *.flex set syntax=lex
+augroup END
+
 augroup filetype_haskell
     " Haskell
     au Bufenter *.hs compiler ghc
