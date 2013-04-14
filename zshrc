@@ -29,7 +29,7 @@ ZSH_THEME="blinks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git mvn ant grails screen)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -40,6 +40,8 @@ bindkey -v
 # End of lines configured by zsh-newuser-install
 export PATH="$HOME/bin:$PATH"
 alias grails=~/sw/grails/bin/grails
+export PATH="$PATH:$HOME/sw/sbt/bin"
+export PATH="$PATH:$HOME/sw/play"
 
 alias pd=pushd
 alias td=popd
@@ -53,8 +55,11 @@ alias ts="tmux new-s -s"
 alias sl='screen -ls'
 alias sa='screen -r'
 alias ss='screen -S'
+alias clj='clojure-1.4'
 
 function gitroot() { cd $(git root) ; }
 alias lh='ls -lh'
 
-#export HADOOP_HOME=$HOME/sw/hadoop
+if [[ $TERM = "linux" ]] ; then
+    export PS1="> "
+fi
