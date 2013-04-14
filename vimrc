@@ -77,8 +77,8 @@ set tabstop=4
 set shiftwidth=4
 " }}}
 
-" gui options (gvim) ------------------------{{{
 "  no menu
+" gui options (gvim) ------------------------{{{
 set guioptions-=m
 "  no toolbar
 set guioptions-=T
@@ -147,7 +147,7 @@ set list
 nnoremap <leader>s :set spell!<CR>
 
 " \f : use par to form
-"nmap <leader>f vip!par-format<CR>
+"nnoremap <leader>f vip!par-format<CR>
 
 " change foldmethod
 nnoremap <leader>fs :set foldmethod=syntax<CR>
@@ -208,6 +208,14 @@ augroup END
 
 augroup filetype_lex
     autocmd BufNewFile,BufRead *.flex set syntax=lex
+augroup END
+
+augroup filetype_clojure
+    autocmd BufNewFile,BufRead *.clj set syntax=clojure
+augroup END
+
+augroup filetype_gsp_md
+    autocmd BufNewFile,BufRead *.md.gsp set syntax=markdown
 augroup END
 
 augroup filetype_haskell
@@ -320,3 +328,8 @@ command! HaskellCtags call HaskellCtags()
 
 " Power line symbols use patched font.
 let g:Powerline_symbols='fancy'
+
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1
+let vimclojure#NailgunClient = "/home/trevor/bin/ng"
+let vimclojure#WantNailgun = 1 

@@ -56,6 +56,7 @@ alias sl='screen -ls'
 alias sa='screen -r'
 alias ss='screen -S'
 alias clj='clojure-1.4'
+alias last='ls -tr | tail -1'
 
 function gitroot() { cd $(git root) ; }
 alias lh='ls -lh'
@@ -63,3 +64,7 @@ alias lh='ls -lh'
 if [[ $TERM = "linux" ]] ; then
     export PS1="> "
 fi
+
+export VIMCLOJURE_SERVER_JAR="$HOME/sw/vimclojure/lib/server-2.3.0.jar"
+
+unsetopt correct_all
