@@ -1,70 +1,83 @@
-" setup pathogen
+" setup pathogen --------------{{{
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+" }}}
 
 " VI Setting:
 "
-" Line Numbers
-" set nu
-set relativenumber
+" enable syntax indent and filetype -------------{{{
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+" }}}
+
+" Line Numbers ----------------{{{
+set nonumber
 function! NumberToggle()
     if (&relativenumber ==1)
-        set nu
+        set norelativenumber
     else
         set relativenumber
     endif
 endfunc
+" }}}
 
-" Search Settings
+" Search Settings --------------{{{
 set ignorecase
 set smartcase
 set incsearch
 set showmatch
 set hlsearch
+" }}}
 
-" Statusline
+" Statusline -----------------{{{
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set laststatus=2
+"}}}
 
-" Wildmenu
+" Wildmenu ----------------------{{{
 set wildmode=longest,full
 set wildmenu
 set wildignore+=*.class,.git,target/**,tags
+" }}}
 
-" G netrw browser settings
+" G netrw browser settings -----{{{
 let g:netrw_liststyle=3
 let g:netrw_browse_split=4
 let g:newrw_preview=1
-
+" }}}
+"
 
 " make g the default for :s replaces
 set gdefault
 
-" ctags
-set tags=./tags;/
+" Highlight the current line
+set cursorline
 
-" Color Scheme
-"colorscheme molokai
-if (!has('gui,_running'))
-    set t_Co=256
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
-    colorscheme solarized
-endif
-"colorscheme molokai
-"set background=light
-" Indent settings
+" Visually select the text that was last edited/pasted
+nnoremap gV `[v`]
+
+" Text options
+"set colorcolumn=85
+
+" ctags --------------------{{{
+set tags=./tags;/
+set tags=./tags,~/.tags
+set complete=.,w,b,u,t,i
+set dictionary+=/usr/share/dict/words
+" }}}
+
+" Indent settings -------------{{{
 set cindent
 set smartindent
 set autoindent
 set expandtab
 set tabstop=4
 set shiftwidth=4
+" }}}
 
-" Text options
-set colorcolumn=85
-
-" gui options (gvim)
+" gui options (gvim) ------------------------{{{
 "  no menu
 set guioptions-=m
 "  no toolbar
@@ -78,26 +91,33 @@ set guioptions-=R
 "  copy to window system selection
 set guioptions+=a
 set guioptions-=t
-
-" Highlight the current line
-set cursorline
-
 " Set the font
 set guifont=Inconsolata\ 11
+" gui only options
+if has('gui_running')
+    set lines=40
+    set columns=95
+    set background=light
+endif
+" Color Scheme -----------------------{{{
+if (!has('gui,_running'))
+    set t_Co=256
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+    colorscheme solarized
+endif
+" }}}
+" }}}
 
-set tags=./tags,~/.tags
-set complete=.,w,b,u,t,i
-set dictionary+=/usr/share/dict/words
-
-" Mappings
-
-" Window movements using C-*
+" MAPPINGS
+" Window movements using C-* ----------------{{{
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+" }}}
 
-" goto tab (using gtk binds <alt-#>)
+" goto tab (using gtk binds <alt-#>) ---------{{{
 noremap <A-1> 1gt
 noremap <A-2> 2gt
 noremap <A-3> 3gt
@@ -107,8 +127,11 @@ noremap <A-6> 6gt
 noremap <A-7> 7gt
 noremap <A-8> 8gt
 noremap <A-9> 9gt
+" }}}
 
+" MAPPINGS ----------------------------------------{{{
 " change leader to ',' because it's easier to hit
+" even though it overrides ',' : repeat last find in reverse
 let mapleader = ","
 let localleader = "\\"
 
@@ -156,7 +179,9 @@ nnoremap <leader>/ :ta /
 " Make!
 nnoremap <leader>m :silent make<CR>
 
-" Ranger integration
+" }}}
+
+" Ranger integration ----------------------------{{{
 fun! RangerChooser()
     silent !ranger --choosefile=/tmp/choosenfile $([ -z '%' ] && echo -n '.' || dirname %)
     if filereadable('/tmp/choosenfile')
@@ -166,39 +191,51 @@ fun! RangerChooser()
     redraw!
 endfun
 noremap <leader>r :call RangerChooser()<CR>
+" }}}
 
-" Visually select the text that was last edited/pasted
-nnoremap gV `[v`]
-
-" Only do this part when compiled with support for auto commands
-if has("autocmd")
-    filetype on
-
-    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-
+" AUTOCMD s ----------------------------{{{
+augroup filetype_jack
     " Treat .jack files as java
     autocmd BufNewFile,BufRead *.jack setfiletype java
+augroup END
 
-    " Source the vimrc file after saving it
-    autocmd bufwritepost .vimrc source $MYVIMRC
-
-    autocmd bufwritepost *.c,*.cpp,*.h silent! !ctags -R * &
-
+" Shader languages
+augroup filetype_glsl
     " glsl
     autocmd BufNewFile,BufRead *.vert set syntax=glsl
     autocmd BufNewFile,BufRead *.frag set syntax=glsl
-    
+augroup END
+
+augroup filetype_haskell
     " Haskell
     au Bufenter *.hs compiler ghc
-endif
+augroup END
 
-if has('gui_running')
-    set lines=40
-    set columns=95
-    colorscheme solarized
-    set background=light
-endif
+augroup filetype_make
+    autocmd!
+    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+augroup END
 
+" Fold on markers in vimscript ---------------{{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+    " Source the vimrc file after saving it
+    autocmd bufwritepost .vimrc source $MYVIMRC
+    autocmd BufNewFile,BufRead .pentadactylrc set syntax=vim
+augroup END
+" }}}
+
+" Fold on syntax in c/cpp ---------------------{{{
+augroup filetype_c
+    autocmd!
+    autocmd FileType c setlocal foldmethod=syntax
+    autocmd FileType cpp setlocal foldmethod=syntax
+augroup END
+" }}}
+" }}}
+
+" Tab Labels, Buffer names ------------------------------------{{{
 " set up tab labels with tab number, buffer name, number of windows
 function! GuiTabLabel()
   let label = ''
@@ -234,15 +271,10 @@ function! GuiTabLabel()
   let wincount = tabpagewinnr(v:lnum, '$')
   return label . '  [' . wincount . ']'
 endfunction
-
 set guitablabel=%{GuiTabLabel()}
+" }}}
 
-" enable stuff
-syntax on
-filetype plugin on
-filetype indent on
-
-" cscope integration
+" cscope integration -------------------{{{
 "if has("cscope")
     "set cprg=/usr/bin/cscope
     "set csto=0
@@ -256,24 +288,31 @@ filetype indent on
         "cs add $CSCOPE_DB
     "endif
 "endif
+" }}}
 
-
+" Haskell Settings
 let g:haddock_browser = "firefox"
+" haskell setting ?
+let hs_highlight_delimiters = 1
 
+" Ctrl - p open in tab/etc
 let g:ctrlp_arg_map = 1
 
-"<leader>cc clears quickfix list
+" <leader>cc clears quickfix list ---------------{{{
 function! ClearQuickFixList()
     call setqflist([])
     cclose
 endfunc
 command! ClearQuickFixList call ClearQuickFixList()
 nnoremap <leader>cq :ClearQuickFixList<CR>
+" }}}
 
-"Haskell ctags
+"Haskell ctags ----------------------{{{
 function! HaskellCtags()
     ! echo ":ctags" | ghci -v0 %
 endfunc
 command! HaskellCtags call HaskellCtags()
+" }}}
 
+" Power line symbols use patched font.
 let g:Powerline_symbols='fancy'
