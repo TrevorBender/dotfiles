@@ -49,6 +49,11 @@ let g:newrw_preview=1
 " }}}
 "
 
+
+" list chars
+set listchars=tab:»\ ,eol:¬
+set list
+
 " make g the default for :s replaces
 set gdefault
 
@@ -59,7 +64,7 @@ set cursorline
 nnoremap gV `[v`]
 
 " Text options
-"set colorcolumn=85
+set colorcolumn=85
 
 " ctags --------------------{{{
 set tags=./tags;/
@@ -135,35 +140,39 @@ noremap <A-9> 9gt
 let mapleader = ","
 let localleader = "\\"
 
-nnoremap <leader>v :sp $MYVIMRC<CR>
+" map space to toggle folds. So much more useful.
+nnoremap <space> za
 
+" edit vimrc
+nnoremap <leader>v :e $MYVIMRC<CR>
+
+" toggle line numbers
 nnoremap <leader>n :call NumberToggle()<CR>
 
-" \l : toggle visible whitespace
+" ,l : toggle visible whitespace
 nnoremap <leader>l :set list!<CR>
-set listchars=tab:»\ ,eol:¬
-set list
-" \s : toggle spell check
+
+" ,s : toggle spell check
 nnoremap <leader>s :set spell!<CR>
 
-" \f : use par to form
-"nmap <leader>f vip!par-format<CR>
+" ,f : use par to form
+"nnoremap <leader>f vip!par-format<CR>
 
 " change foldmethod
 nnoremap <leader>fs :set foldmethod=syntax<CR>
 nnoremap <leader>fm :set foldmethod=marker<CR>
 nnoremap <leader>fn :set foldmethod=manual<CR>
 
-" \h : clear search highlights
+" ,h : clear search highlights
 nnoremap <leader>h :noh<CR>
 
-" \ew : open from current dir
+" ,ew : open from current dir
 noremap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-" \es : open in new window from current dir
+" ,es : open in new window from current dir
 noremap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-" \ev : open in new vertical window from current dir
+" ,ev : open in new vertical window from current dir
 noremap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-" \et : open in new tab from current dir
+" ,et : open in new tab from current dir
 noremap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " quickfix maps
@@ -173,17 +182,62 @@ nnoremap <leader>cp :cp<CR>
 " New tab
 nnoremap <leader>T :tabe<CR>
 
+
+" <leader>t to switch between expand tab and no expand tab
+nnoremap <leader>t :set expandtab!<cr>
+
 " ctags maps
 nnoremap <leader>/ :ta /
 
 " Make!
 nnoremap <leader>m :silent make<CR>
 
+" Always search using very magic
+"nnoremap / /\v
+
+" Highlight whitespace at the end of the line
+nnoremap <localleader>w :match ErrorMsg /\v\s+$/<cr>
+nnoremap <localleader>W :match none<cr>
+
+" 'upercase word' mapping.
+inoremap <c-u> <esc>mzgUiw`za
+
+" Quickfix Toggle <leader>q -------------------------{{{
+nnoremap <leader>q :call <SID>QuickfixToggle()<cr>
+let g:quickfix_is_open = 0
+function! s:QuickfixToggle()
+    if g:quickfix_is_open
+        cclose
+        let g:quickfix_is_open = 0
+        execute g:quickfix_return_to_window . "wincmd w"
+    else
+        let g:quickfix_is_open = 1
+        let g:quickfix_return_to_window = winnr()
+        copen
+    endif
+endfunction
+
+"}}}
+" foldcolumn toggle <leader>f ----------------------{{{
+set foldcolumn=0
+nnoremap <leader>f :call <SID>FoldColumnToggle()<cr>
+function! s:FoldColumnToggle()
+    if &foldcolumn
+        set foldcolumn=0
+    else
+        set foldcolumn=1
+    endif
+endfunction
+"}}}
 " }}}
 
 " Ranger integration ----------------------------{{{
 fun! RangerChooser()
-    silent !ranger --choosefile=/tmp/choosenfile $([ -z '%' ] && echo -n '.' || dirname %)
+    if has('gui_running')
+        ConqueTerm ranger --choosefile=/tmp/choosenfile $([ -z '%' ] && echo -n '.' || dirname %)
+    else
+        silent !ranger --choosefile=/tmp/choosenfile $([ -z '%' ] && echo -n '.' || dirname %)
+    endif
     if filereadable('/tmp/choosenfile')
         exec 'edit ' . system('cat /tmp/choosenfile')
         call system('rm /tmp/choosenfile')
@@ -218,6 +272,18 @@ augroup END
 augroup filetype_make
     autocmd!
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+augroup END
+
+augroup filetype_txt
+    autocmd!
+    function! ToggleHelp()
+        if &filetype ==# 'help'
+            set filetype=text
+        else
+            set filetype=help
+        endif
+    endfunction
+    autocmd BufNewFile,BufRead *.txt nnoremap <buffer> <leader>H :call ToggleHelp()<cr>
 augroup END
 
 " Fold on markers in vimscript ---------------{{{
@@ -302,13 +368,12 @@ let hs_highlight_delimiters = 1
 " Ctrl - p open in tab/etc
 let g:ctrlp_arg_map = 1
 
-" <leader>cc clears quickfix list ---------------{{{
+" <leader>cq clears quickfix list ---------------{{{
 function! ClearQuickFixList()
     call setqflist([])
     cclose
 endfunc
-command! ClearQuickFixList call ClearQuickFixList()
-nnoremap <leader>cq :ClearQuickFixList<CR>
+nnoremap <leader>cq :call ClearQuickFixList()<CR>
 " }}}
 
 "Haskell ctags ----------------------{{{
@@ -320,3 +385,9 @@ command! HaskellCtags call HaskellCtags()
 
 " Power line symbols use patched font.
 let g:Powerline_symbols='fancy'
+
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1
+let vimclojure#NailgunClient = "/home/trevor/bin/ng"
+let vimclojure#WantNailgun = 1
+

@@ -3,7 +3,9 @@ set guioptions+=n
 set guioptions-=r
 set guioptions-=b
 
+" @@ inserts my email address
 iabbrev @@ Trevor.Bender@gmail.com
 
-nmap s :open google 
-nmap S :tabopen google 
+" Search
+nnoremap s :open google 
+nnoremap S :tabopen google 
