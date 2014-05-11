@@ -7,5 +7,6 @@ set guioptions-=b
 iabbrev @@ Trevor.Bender@gmail.com
 
 " Search
-nnoremap s :open google 
-nnoremap S :tabopen google 
+set defsearch=duckduckgo
+nnoremap s :open duckduckgo 
+nnoremap S :tabopen duckduckgo 

@@ -12,7 +12,7 @@ function! s:GrepOperator(type)
         return
     endif
 
-    silent execute "grep! -R " . shellescape(@@) . " ."
+    silent execute "grep! --exclude=\".*\" -R " . shellescape(@@) . " ."
     copen
 
     let @@ = saved_unnamed_register

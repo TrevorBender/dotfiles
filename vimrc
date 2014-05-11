@@ -51,8 +51,11 @@ let g:newrw_preview=1
 
 
 " list chars
-set listchars=tab:»\ ,eol:¬
+"set listchars=tab:»»,eol:¬,trail:·
+set listchars=tab:»»,trail:·
 set list
+"exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+"set list
 
 " make g the default for :s replaces
 set gdefault
@@ -64,7 +67,9 @@ set cursorline
 nnoremap gV `[v`]
 
 " Text options
-set colorcolumn=85
+"set colorcolumn=81
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
 
 " ctags --------------------{{{
 set tags=./tags;/
@@ -146,8 +151,12 @@ nnoremap <space> za
 " edit vimrc
 nnoremap <leader>v :e $MYVIMRC<CR>
 
-" toggle line numbers
+" toggle relative line numbers
 nnoremap <leader>n :call NumberToggle()<CR>
+
+" toggle absolute line numbers
+nnoremap <leader>N :set number!<CR>
+
 
 " ,l : toggle visible whitespace
 nnoremap <leader>l :set list!<CR>
@@ -190,7 +199,8 @@ nnoremap <leader>t :set expandtab!<cr>
 nnoremap <leader>/ :ta /
 
 " Make!
-nnoremap <leader>m :silent make<CR>
+command! -nargs=* QMake make <args> | cwindow 3
+nnoremap <leader>m :silent :QMake<CR>
 
 " Always search using very magic
 "nnoremap / /\v
@@ -201,6 +211,8 @@ nnoremap <localleader>W :match none<cr>
 
 " 'upercase word' mapping.
 inoremap <c-u> <esc>mzgUiw`za
+
+nnoremap <F5> :GundoToggle<CR>
 
 " Quickfix Toggle <leader>q -------------------------{{{
 nnoremap <leader>q :call <SID>QuickfixToggle()<cr>
@@ -264,9 +276,6 @@ augroup filetype_lex
     autocmd BufNewFile,BufRead *.flex set syntax=lex
 augroup END
 
-augroup filetype_clojure
-    autocmd BufNewFile,BufRead *.clj set syntax=clojure
-augroup END
 
 augroup filetype_gsp_md
     autocmd BufNewFile,BufRead *.md.gsp set syntax=markdown
@@ -274,7 +283,38 @@ augroup END
 
 augroup filetype_haskell
     " Haskell
-    au Bufenter *.hs compiler ghc
+    autocmd!
+    autocmd BufNewFile,BufRead .ghci setfiletype haskell
+    autocmd Bufenter *.hs compiler ghc
+    function! HaskellRun()
+        write
+        silent !clear
+        if glob("*.cabal") != ''
+            execute "!cabal run"
+        else
+            execute "!runghc " . bufname("%")
+        endif
+    endfunction
+    autocmd BufNewFile,BufRead *.hs nnoremap <buffer> _r :call HaskellRun()<cr>
+    function! HaskellRepl()
+        write
+        silent !clear
+        execute "!ghci " . bufname('%')
+    endfunction
+    function! HaskellReplConque()
+        execute "ConqueTerm ghci " . bufname('%')
+    endfunction
+    function! SetToCabalBuild()
+        if glob("*.cabal") != ''
+            set makeprg=cabal\ build
+        endif
+    endfunction
+    autocmd BufEnter *.hs :call SetToCabalBuild()
+    autocmd BufNewFile,BufRead *.hs nnoremap <buffer> _g :!ghci %<cr>
+    autocmd BufNewFile,BufRead *.hs nnoremap <buffer> _G :call HaskellReplConque()<cr>
+    autocmd BufNewFile,BufRead *.hs nnoremap <buffer> _R :Clam runhaskell %<cr>
+    autocmd BufNewFile,BufRead *.hs nnoremap <buffer> _c :!ghc %<cr>
+    autocmd BufNewFile,BufRead *.hs nnoremap <buffer> _h :Hoogle <C-R><C-W><CR>
 augroup END
 
 augroup filetype_make
@@ -293,6 +333,32 @@ augroup filetype_txt
     endfunction
     autocmd BufNewFile,BufRead *.txt nnoremap <buffer> <leader>H :call ToggleHelp()<cr>
 augroup END
+
+augroup filetype_hamlet
+    autocmd!
+    autocmd Bufenter *.hamlet set syntax=hamlet
+augroup END
+
+augroup filetype_clojure
+    autocmd!
+    autocmd BufNewFile,BufRead *.clj set syntax=clojure
+    function! ClojureGrep(type)
+        let saved_unnamed_register = @@
+        if a:type ==# 'v'
+            normal! `<v`>y
+        elseif a:type ==# 'char'
+            normal! `[v`]y
+        else
+            return
+        endif
+        silent execute "vimgrep /" . @@ . "/ **/*.clj"
+        copen
+        let @@ = saved_unnamed_register
+    endfunction
+    autocmd FileType clojure nnoremap cg :set operatorfunc=ClojureGrep<cr>g@
+    autocmd FileType clojure vnoremap cg :<c-u>call GrepOperator(visualmode())<cr>
+augroup END
+
 
 " Fold on markers in vimscript ---------------{{{
 augroup filetype_vim
@@ -373,6 +439,11 @@ let g:haddock_browser = "firefox"
 " haskell setting ?
 let hs_highlight_delimiters = 1
 
+function! Hoogle(str)
+    execute "!" . g:haddock_browser . " http://www.haskell.org/hoogle/?hoogle=" . a:str
+endfunction
+command! -nargs=1 Hoogle call Hoogle(<f-args>)
+
 " Ctrl - p open in tab/etc
 let g:ctrlp_arg_map = 1
 
@@ -392,10 +463,40 @@ command! HaskellCtags call HaskellCtags()
 " }}}
 
 " Power line symbols use patched font.
-let g:Powerline_symbols='fancy'
+set rtp+=/home/trevor/git/powerline/powerline/bindings/vim
+"let g:Powerline_symbols='fancy'
 
-let g:vimclojure#HighlightBuiltins = 1
-let g:vimclojure#ParenRainbow = 1
-let vimclojure#NailgunClient = "/home/trevor/bin/ng"
-let vimclojure#WantNailgun = 1 
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- )
 
+let g:SuperTabMappingForward = '<tab>'
+let g:SuperTabMappingBackward = '<s-tab>'
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabContextDefaultCompletiontype = "<c-n>"
+
+" Clam settings ----------{{{
+nnoremap ! :Clam<space>
+vnoremap ! :ClamVisual<space>
+" }}}
+
+
+" Search highlight
+nnoremap <silent> n   n:call HLNext(0.4)<cr>
+nnoremap <silent> N   N:call HLNext(0.4)<cr>
+function! HLNext (blinktime)
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#'.@/
+    let ring = matchadd('ColorColumn', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(ring)
+    redraw
+endfunction

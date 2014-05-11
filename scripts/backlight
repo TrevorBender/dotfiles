@@ -14,19 +14,19 @@ previous=$(cat ${path}/brightness)
 
 function commit {
 	if [[ $1 = [0-9]* ]]
-	then 
+	then
 		if [[ $1 -gt $max ]]
-		then 
+		then
 			next=$max
 		elif [[ $1 -lt 0 ]]
-		then 
+		then
 			next=0
-		else 
+		else
 			next=$1
 		fi
 		echo $next >> ${path}/brightness
 		exit 0
-	else 
+	else
 		exit 1
 	fi
 }
@@ -39,14 +39,14 @@ fi
 case "$cmd" in
  up)
 	if [[ $previous -le $treshold ]]
-	then 
+	then
 	    step=$(($step/4))
 	fi
 	commit $(($previous + $step))
    ;;
  down)
 	if [[ $previous -le $treshold ]]
-	then 
+	then
 	    step=$(($step/4))
 	fi
 	commit $(($previous - $step))
@@ -61,7 +61,7 @@ case "$cmd" in
 	 echo $previous
    ;;
  night)
-	 commit $(($max/4)) 
+	 commit $(($max/4))
  	 ;;
  allowusers)
 	 # Allow members of users group to change brightness

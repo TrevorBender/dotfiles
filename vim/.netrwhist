@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/trevor/src/password'
+let g:netrw_dirhist_2='/home/trevor/src/xmonad'
+let g:netrw_dirhist_3='/home/trevor/src/real-world-haskell/sys_prog'
+let g:netrw_dirhist_4='/home/trevor/src/real-world-haskell/bloom'
+let g:netrw_dirhist_5='/home/trevor/src/real-world-haskell/bloom/cbits'
+let g:netrw_dirhist_6='/home/trevor/src/real-world-haskell/bloom/BloomFilter'
+let g:netrw_dirhist_7='/home/trevor/.newsbeuter'
