@@ -1,0 +1,20 @@
+color listfocus yellow black bold
+color listfocus_unread    magenta black   bold
+color info yellow black bold
+
+browser firefox
+
+proxy localhost:6666
+proxy-type socks5
+
+unbind-key j
+bind-key j next
+
+unbind-key k
+bind-key k prev
+
+unbind-key J
+bind-key J next-feed
+
+unbind-key K
+bind-key K prev-feed
