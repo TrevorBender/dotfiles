@@ -383,11 +383,102 @@ endfunc
 command! HaskellCtags call HaskellCtags()
 " }}}
 
-" Power line symbols use patched font.
-let g:Powerline_symbols='fancy'
 
+" Clojure
 let g:vimclojure#HighlightBuiltins = 1
 let g:vimclojure#ParenRainbow = 1
 let vimclojure#NailgunClient = "/home/trevor/bin/ng"
 let vimclojure#WantNailgun = 1
 
+" Status Line: ------------{{{
+
+" " Status Function: -------------{{{2
+
+function! Status(winnr)
+    let stat = ''
+    let active = winnr() == a:winnr
+    let buffer = winbufnr(a:winnr)
+    let modified = getbufvar(buffer, '&modified')
+    let readonly = getbufvar(buffer, '&ro')
+    let fname = bufname(buffer)
+    function! Color(active, num, content)
+        if a:active
+            return '%' . a:num . '*' . a:content . '%*'
+        else
+            return a:content
+        endif
+    endfunction
+    " column
+    let stat .= '%1*' . (col(".") / 100 >= 1 ? '%v ' : ' %2v ') . '%*'
+    " file
+    let stat .= Color(active, 4, active ? ' »' : ' «')
+    let stat .= ' %<'
+    if fname == '__Gundo__'
+        let stat .= 'Gundo'
+    elseif fname == '__Gundo_Preview__'
+        let stat .= 'Gundo Preview'
+    else
+        let stat .= '%f'
+    endif
+    let stat .= ' ' . Color(active, 4, active ? '«' : '»')
+    " file modified
+    let stat .= Color(active, 2, modified ? ' +' : '')
+    " read only
+    let stat .= Color(active, 2, readonly ? ' ‼' : '')
+    " paste
+    if active && &paste
+        let stat .= ' %2*' . 'P' . '%*'
+    endif
+    " right side
+    let stat .= '%='
+    " git branch
+    if exists('*fugitive#head')
+        let head = fugitive#head()
+        if empty(head) && exists('*fugitive#detect') && !exists('b:git_dir')
+            call fugitive#detect(getcwd())
+            let head = fugitive#head()
+        endif
+    endif
+    if !empty(head)
+        let stat .= Color(active, 3, ' ← ') . head . ' '
+    endif
+    return stat
+endfunction
+" }}}
+" Status AutoCMD: {{{
+function! SetStatus()
+    for nr in range(1, winnr('$'))
+        call setwinvar(nr, '&statusline', '%!Status('.nr.')')
+    endfor
+endfunction
+augroup status
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter,BufUnload * call SetStatus()
+augroup END
+" }}}
+
+" Status Colors: {{{
+hi! User1 ctermfg=33  ctermbg=239 cterm=bold
+hi! User2 ctermfg=125 ctermbg=239 cterm=bold
+hi! User3 ctermfg=64  ctermbg=239 cterm=bold
+hi! User4 ctermfg=37  ctermbg=239 cterm=bold
+" }}}
+
+" Change status line on insert mode
+" 4 - blue
+" 15 - default
+au InsertEnter * hi StatusLine ctermbg=4
+au InsertLeave * hi StatusLine ctermbg=15
+set noshowmode
+
+"Change cursor line on insert mode
+"187 - default
+" 7 - white
+" 8 - inverse
+" 150  green
+"
+au InsertEnter * hi CursorLine ctermbg=150
+au InsertLeave * hi CursorLine ctermbg=187
+
+
+" }}}
