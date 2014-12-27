@@ -43,3 +43,6 @@
 [submodule "vim/bundle/splice"]
 	path = vim/bundle/splice
 	url = git://github.com/sjl/splice.vim.git
+[submodule "vim/bundle/man"]
+	path = vim/bundle/man
+	url = git@github.com:emezeske/manpageview.git
