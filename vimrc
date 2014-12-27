@@ -5,6 +5,14 @@ call pathogen#helptags()
 
 " VI Setting:
 "
+
+" Enable per-directory .vimrc files
+set exrc
+set secure
+
+" short messages
+set shortmess=atToOI
+
 " enable syntax indent and filetype -------------{{{
 syntax on
 filetype on
@@ -14,11 +22,14 @@ filetype indent on
 
 " Line Numbers ----------------{{{
 set nonumber
+set norelativenumber
 function! NumberToggle()
     if (&relativenumber ==1)
         set norelativenumber
+        set nonumber
     else
         set relativenumber
+        set number
     endif
 endfunc
 " }}}
@@ -51,7 +62,8 @@ let g:newrw_preview=1
 
 
 " list chars
-set listchars=tab:»\ ,eol:¬
+set listchars=tab:»\ ,nbsp:_,trail:·
+" ,eol:¬
 set list
 
 " make g the default for :s replaces
@@ -62,9 +74,6 @@ set cursorline
 
 " Visually select the text that was last edited/pasted
 nnoremap gV `[v`]
-
-" Text options
-set colorcolumn=85
 
 " ctags --------------------{{{
 set tags=./tags;/
@@ -113,6 +122,15 @@ if (!has('gui,_running'))
 endif
 " }}}
 " }}}
+
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
 
 " MAPPINGS
 " Window movements using C-* ----------------{{{
