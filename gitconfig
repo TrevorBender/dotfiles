@@ -1,0 +1,36 @@
+[user]
+	name = Trevor Bender
+	email = Trevor.Bender@gmail.com
+[color]
+	ui = true
+[alias]
+	ci = commit
+	a = add
+	co = checkout
+	s = status -s
+	ss = status
+	b = branch
+	bnm = branch --no-merge
+	bm = branch --merge
+	m = merge
+	d = diff --ignore-all-space
+	dc = diff --cached --ignore-all-space
+	df = diff --name-status
+	dcf = diff --cached --name-status
+	dt = difftool
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lolas = log --graph --decorate --pretty=oneline --abbrev-commit --all --stat
+	root = !pwd
+	remotedir = !git remote -v | awk '/(fetch)/ {print $2}'
+[merge]
+    tool = splice
+[mergetool "splice"]
+    cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
+    trustExitCode = true
+[core]
+    #autocrlf = true
+    autocrlf = input
+	excludesfile = $HOME/.gitignore_global
+[diff]
+    tool = vimdiff
