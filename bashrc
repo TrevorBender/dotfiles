@@ -65,7 +65,7 @@ function tss()
 source ~/.git-completion.sh
 complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null \
     || complete -o default -o nospace -F _git g
-source ~/.git-prompt.sh
+source /usr/share/git/git-prompt.sh
 if [ "\$(type -t __git_ps1)" ]; then
     PS1="${txtcyn}\$(__git_ps1 '(%s) ')$PS1"
 fi
@@ -93,4 +93,4 @@ function set_bash_prompt ()
 \[\e[0m\]> "
 }
 # need tput
-#PROMPT_COMMAND=set_bash_prompt
+PROMPT_COMMAND=set_bash_prompt
