@@ -46,3 +46,66 @@
 [submodule "vim/bundle/man"]
 	path = vim/bundle/man
 	url = git@github.com:emezeske/manpageview.git
+[submodule "vim/bundle/ag"]
+	path = vim/bundle/ag
+	url = git@github.com:rking/ag.vim.git
+[submodule "vim/bundle/haskell-vim"]
+	path = vim/bundle/haskell-vim
+	url = git@github.com:raichoo/haskell-vim.git
+[submodule "vim/bundle/gdbmgr"]
+	path = vim/bundle/gdbmgr
+	url = git@github.com:vim-scripts/gdbmgr.git
+[submodule "vim/bundle/ycm"]
+	path = vim/bundle/ycm
+	url = git@github.com:Valloric/YouCompleteMe.git
+[submodule "vim/bundle/git_gutter"]
+	path = vim/bundle/git_gutter
+	url = git@github.com:airblade/vim-gitgutter.git
+[submodule "vim/bundle/rust"]
+	path = vim/bundle/rust
+	url = git@github.com:rust-lang/rust.vim.git
+[submodule "vim/bundle/pony.vim"]
+	path = vim/bundle/pony.vim
+	url = git@github.com:dleonard0/pony-vim-syntax.git
+[submodule "vim/bundle/vim-json"]
+	path = vim/bundle/vim-json
+	url = git@github.com:elzr/vim-json.git
+[submodule "vim/bundle/emmet"]
+	path = vim/bundle/emmet
+	url = git@github.com:mattn/emmet-vim.git
+[submodule "vim/bundle/vim-jade"]
+	path = vim/bundle/vim-jade
+	url = git@github.com:digitaltoad/vim-jade.git
+[submodule "vim/bundle/vim-jsx"]
+	path = vim/bundle/vim-jsx
+	url = git@github.com:mxw/vim-jsx.git
+[submodule "vim/bundle/typescript-vim"]
+	path = vim/bundle/typescript-vim
+	url = git@github.com:leafgarland/typescript-vim.git
+[submodule "vim/bundle/targets"]
+	path = vim/bundle/targets
+	url = git@github.com:wellle/targets.vim.git
+[submodule "vim/bundle/vim-racket"]
+	path = vim/bundle/vim-racket
+	url = git@github.com:wlangstroth/vim-racket.git
+[submodule "vim/bundle/dart"]
+	path = vim/bundle/dart
+	url = git@github.com:dart-lang/dart-vim-plugin.git
+[submodule "vim/bundle/vim-flatbuffers"]
+	path = vim/bundle/vim-flatbuffers
+	url = git@github.com:dcharbon/vim-flatbuffers.git
+[submodule "vim/bundle/mustache-handlebars"]
+	path = vim/bundle/mustache-handlebars
+	url = git@github.com:mustache/vim-mustache-handlebars.git
+[submodule "vim/bundle/vim-view"]
+	path = vim/bundle/vim-view
+	url = git@github.com:posva/vim-vue.git
+[submodule "vim/bundle/tsuqyomi"]
+	path = vim/bundle/tsuqyomi
+	url = git@github.com:Quramy/tsuquyomi.git
+[submodule "vimproc"]
+	path = vimproc
+	url = git@github.com:Shougo/vimproc.vim.git
+[submodule "vim/bundle/vimproc"]
+	path = vim/bundle/vimproc
+	url = git@github.com:Shougo/vimproc.vim.git
