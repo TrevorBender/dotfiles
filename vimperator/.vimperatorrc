@@ -1,0 +1,8 @@
+set gui=none
+
+let mapleader=','
+
+nnoremap <leader>t :set gui=tabs<CR>
+nnoremap <leader>T :set gui=none<CR>
+
+nnoremap <leader>h :set noh<CR>
