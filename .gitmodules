@@ -55,9 +55,6 @@
 [submodule "vim/bundle/gdbmgr"]
 	path = vim/bundle/gdbmgr
 	url = git@github.com:vim-scripts/gdbmgr.git
-[submodule "vim/bundle/ycm"]
-	path = vim/bundle/ycm
-	url = git@github.com:Valloric/YouCompleteMe.git
 [submodule "vim/bundle/rust"]
 	path = vim/bundle/rust
 	url = git@github.com:rust-lang/rust.vim.git
