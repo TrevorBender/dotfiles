@@ -67,9 +67,6 @@
 [submodule "vim/bundle/emmet"]
 	path = vim/bundle/emmet
 	url = git@github.com:mattn/emmet-vim.git
-[submodule "vim/bundle/vim-jsx"]
-	path = vim/bundle/vim-jsx
-	url = git@github.com:mxw/vim-jsx.git
 [submodule "vim/bundle/typescript-vim"]
 	path = vim/bundle/typescript-vim
 	url = git@github.com:leafgarland/typescript-vim.git
