@@ -55,18 +55,9 @@
 [submodule "vim/bundle/mustache-handlebars"]
 	path = vim/bundle/mustache-handlebars
 	url = git@github.com:mustache/vim-mustache-handlebars.git
-[submodule "vim/bundle/vim-view"]
-	path = vim/bundle/vim-view
-	url = git@github.com:posva/vim-vue.git
 [submodule "vim/bundle/tsuqyomi"]
 	path = vim/bundle/tsuqyomi
 	url = git@github.com:Quramy/tsuquyomi.git
-[submodule "vimproc"]
-	path = vimproc
-	url = git@github.com:Shougo/vimproc.vim.git
-[submodule "vim/bundle/vimproc"]
-	path = vim/bundle/vimproc
-	url = git@github.com:Shougo/vimproc.vim.git
 [submodule "vim/bundle/kotlin"]
 	path = vim/bundle/kotlin
 	url = git@github.com:udalov/kotlin-vim.git
