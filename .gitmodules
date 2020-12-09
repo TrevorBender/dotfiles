@@ -37,9 +37,6 @@
 [submodule "vim/bundle/emmet"]
 	path = vim/bundle/emmet
 	url = git@github.com:mattn/emmet-vim.git
-[submodule "vim/bundle/typescript-vim"]
-	path = vim/bundle/typescript-vim
-	url = git@github.com:leafgarland/typescript-vim.git
 [submodule "vim/bundle/targets"]
 	path = vim/bundle/targets
 	url = git@github.com:wellle/targets.vim.git
@@ -52,9 +49,6 @@
 [submodule "vim/bundle/mustache-handlebars"]
 	path = vim/bundle/mustache-handlebars
 	url = git@github.com:mustache/vim-mustache-handlebars.git
-[submodule "vim/bundle/tsuqyomi"]
-	path = vim/bundle/tsuqyomi
-	url = git@github.com:Quramy/tsuquyomi.git
 [submodule "vim/bundle/kotlin"]
 	path = vim/bundle/kotlin
 	url = git@github.com:udalov/kotlin-vim.git
