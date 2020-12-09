@@ -7,9 +7,6 @@
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized
-[submodule "vim/bundle/easygrep"]
-	path = vim/bundle/easygrep
-	url = git://github.com/vim-scripts/EasyGrep.git
 [submodule "vim/bundle/vimclojure"]
 	path = vim/bundle/vimclojure
 	url = git://github.com/vim-scripts/VimClojure.git
