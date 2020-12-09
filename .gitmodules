@@ -7,9 +7,6 @@
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized
-[submodule "vim/bundle/ctrlp"]
-	path = vim/bundle/ctrlp
-	url = git://github.com/kien/ctrlp.vim.git
 [submodule "vim/bundle/easygrep"]
 	path = vim/bundle/easygrep
 	url = git://github.com/vim-scripts/EasyGrep.git
@@ -52,9 +49,6 @@
 [submodule "vim/bundle/vim-racket"]
 	path = vim/bundle/vim-racket
 	url = git@github.com:wlangstroth/vim-racket.git
-[submodule "vim/bundle/dart"]
-	path = vim/bundle/dart
-	url = git@github.com:dart-lang/dart-vim-plugin.git
 [submodule "vim/bundle/vim-flatbuffers"]
 	path = vim/bundle/vim-flatbuffers
 	url = git@github.com:dcharbon/vim-flatbuffers.git
