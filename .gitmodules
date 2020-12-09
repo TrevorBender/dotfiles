@@ -1,15 +1,6 @@
-[submodule "vim/bundle/haskell-vim"]
-	path = vim/bundle/haskell-vim
-	url = git@github.com:raichoo/haskell-vim.git
 [submodule "vim/bundle/gdbmgr"]
 	path = vim/bundle/gdbmgr
 	url = git@github.com:vim-scripts/gdbmgr.git
-[submodule "vim/bundle/rust"]
-	path = vim/bundle/rust
-	url = git@github.com:rust-lang/rust.vim.git
-[submodule "vim/bundle/pony.vim"]
-	path = vim/bundle/pony.vim
-	url = git@github.com:dleonard0/pony-vim-syntax.git
 [submodule "vim/bundle/emmet"]
 	path = vim/bundle/emmet
 	url = git@github.com:mattn/emmet-vim.git
