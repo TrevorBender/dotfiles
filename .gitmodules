@@ -13,9 +13,6 @@
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = git://github.com/altercation/vim-colors-solarized
-[submodule "vim/bundle/ack"]
-	path = vim/bundle/ack
-	url = git://github.com/mileszs/ack.vim.git
 [submodule "vim/bundle/ctrlp"]
 	path = vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
@@ -34,9 +31,6 @@
 [submodule "vim/bundle/man"]
 	path = vim/bundle/man
 	url = git@github.com:emezeske/manpageview.git
-[submodule "vim/bundle/ag"]
-	path = vim/bundle/ag
-	url = git@github.com:rking/ag.vim.git
 [submodule "vim/bundle/haskell-vim"]
 	path = vim/bundle/haskell-vim
 	url = git@github.com:raichoo/haskell-vim.git
