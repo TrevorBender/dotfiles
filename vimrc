@@ -1,7 +1,32 @@
-" setup pathogen {{{
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+" setup vim-plug {{{
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'preservim/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'sjl/splice.vim'
+
+" Auto complete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Javascript
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+
+" Go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" Typescript
+Plug 'leafgarland/typescript-vim'
+
+call plug#end()
+
 " }}}
+
 
 " VI Setting:
 "
@@ -42,14 +67,14 @@ set hlsearch        " hilight matches
 " }}}
 
 " Statusline {{{
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-set laststatus=2
+"set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+"set laststatus=2
 "}}}
 
 " Wildmenu {{{
 set wildmode=longest,full
 set wildmenu
-set wildignore+=*.class,.git,target/**,tags,*.o,*.swp
+set wildignore+=*.class,.git,target/**,tags,*.o,*.swp,node_modules
 " }}}
 
 " G netrw browser settings {{{
@@ -82,8 +107,16 @@ set lazyredraw
 " Show matching {[ etc
 set showmatch
 
+" Load matchit.vim, but only if there isn't a new version
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+    runtime! macros/matchit.vim
+endif
+
 " Fix line joins, using formatting
 set formatoptions+=j
+
+" Don't increment/decrement octal
+set nrformats-=octal
 
 " ctags {{{
 set tags=./tags;/
@@ -244,7 +277,10 @@ nnoremap <localleader>W :match none<cr>
 inoremap <c-y> <esc>mzgUiw`za
 
 nnoremap <leader>w :w<cr>
-nnoremap <leader>o :CtrlP<CR>
+
+nnoremap g<C-p> :FZF<CR>
+nnoremap <C-p> :GFiles<CR>
+nnoremap g<C-b> :Buffers<CR>
 
 " Quickfix Toggle <leader>q {{{
 nnoremap <leader>q :call <SID>QuickfixToggle()<cr>
@@ -457,10 +493,6 @@ let g:haddock_browser = "firefox"
 let hs_highlight_delimiters = 1
 " }}}
 
-" Ctrl - p open in tab/etc {{{
-let g:ctrlp_arg_map = 1
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:100,results:100'
-" }}}
 
 " <leader>cq clears quickfix list {{{
 function! ClearQuickFixList()
@@ -484,45 +516,11 @@ let vimclojure#NailgunClient = "/home/trevor/bin/ng"
 let vimclojure#WantNailgun = 1
 " }}}
 
-" YCM: {{{
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_warning_symbol = '> '
-if !exists("g:ycm_semantic_triggers")
-    let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers['typescript'] = ['.']
+" COC {{{
 
-" DEBUG
-"let g:ycm_keep_logfiles = 1
-"let g:ycm_log_level = 'debug'
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " }}}
-
-" tsugyomi (typescript) {{{
-
-" Disable quickfix on save
-"let g:tsuquyomi_disable_quickfix = 1
-
-" Fix tsugyomi default mapping removing ctrl-^ binding
-let g:tsuquyomi_disable_default_mappings = 0
-augroup tsuguyomi
-    autocmd!
-    autocmd BufNewFile,BufEnter *.ts map <buffer> <C-]> <Plug>(TsuquyomiDefinition)
-    autocmd BufNewFile,BufEnter *.ts map <buffer> <C-t> <Plug>(TsuquyomiGoBack)
-augroup END
-
-let g:typescript_compiler_binary = 'tsc'
-let g:typescript_compiler_options = ''
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-" }}}
-
-" Emmet
-let g:user_emmet_leader_key='<C-Z>'
 
 " HEX EDITOR: {{{
 let $in_hex = 0
@@ -539,29 +537,6 @@ function! Hex()
 endfunction
 nnoremap <leader>x :call Hex()<cr>
 " }}}
-
-" Syntasic: {{{
-let g:syntasic_vim_checkers = ['vint']
-let g:syntastic_typescript_checkers = ['tsuquyomi']
-"let g:syntastic_mode_map = {
-			"\ "mode": "active",
-			"\ "active_filetypes": [],
-			"\ "passive_filetypes": ["go"] }
-" }}}
-
-" Tabular {{{
-vmap <leader>a, :Tabularize comma<CR>
-vmap <leader>a/ :Tabularize comment<CR>
-" }}}
-" Dart
-if has('vim_starting')
-    set nocompatible
-    set runtimepath+=~/.vim/bundle/dart
-endif
-
-" Rust
-let g:racer_experimental_completer = 1
-au FileType rust nmap gd <Plug>(rust-def)
 
 " Status Line: {{{
 
@@ -605,16 +580,16 @@ function! Status(winnr)
     " right side
     let stat .= '%='
     " git branch
-    if exists('*fugitive#head')
-        let head = fugitive#head()
-        if empty(head) && exists('*fugitive#detect') && !exists('b:git_dir')
-            call fugitive#detect(getcwd())
-            let head = fugitive#head()
-        endif
-    endif
-    if !empty(head)
-        let stat .= Color(active, 3, ' ← ') . head . ' '
-    endif
+    "if exists('*FugitiveHead')
+        "let head = FugitiveHead()
+        "if empty(head) && exists('*fugitive#detect') && !exists('b:git_dir')
+            "call fugitive#detect(getcwd())
+            "let head = FugitiveHead()
+        "endif
+    "endif
+    "if !empty(head)
+        "let stat .= Color(active, 3, ' ← ') . head . ' '
+    "endif
     return stat
 endfunction
 " }}}
