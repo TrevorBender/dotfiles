@@ -28,27 +28,15 @@
 [submodule "vim/bundle/pony.vim"]
 	path = vim/bundle/pony.vim
 	url = git@github.com:dleonard0/pony-vim-syntax.git
-[submodule "vim/bundle/vim-json"]
-	path = vim/bundle/vim-json
-	url = git@github.com:elzr/vim-json.git
 [submodule "vim/bundle/emmet"]
 	path = vim/bundle/emmet
 	url = git@github.com:mattn/emmet-vim.git
 [submodule "vim/bundle/targets"]
 	path = vim/bundle/targets
 	url = git@github.com:wellle/targets.vim.git
-[submodule "vim/bundle/vim-racket"]
-	path = vim/bundle/vim-racket
-	url = git@github.com:wlangstroth/vim-racket.git
-[submodule "vim/bundle/vim-flatbuffers"]
-	path = vim/bundle/vim-flatbuffers
-	url = git@github.com:dcharbon/vim-flatbuffers.git
 [submodule "vim/bundle/mustache-handlebars"]
 	path = vim/bundle/mustache-handlebars
 	url = git@github.com:mustache/vim-mustache-handlebars.git
 [submodule "vim/bundle/kotlin"]
 	path = vim/bundle/kotlin
 	url = git@github.com:udalov/kotlin-vim.git
-[submodule "vim/bundle/vim-pug"]
-	path = vim/bundle/vim-pug
-	url = git@github.com:digitaltoad/vim-pug.git
