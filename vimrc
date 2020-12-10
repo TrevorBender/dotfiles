@@ -715,10 +715,6 @@ function! Status(winnr)
     " git branch
     if exists('*FugitiveHead')
         let head = FugitiveHead()
-        if empty(head) && exists('*fugitive#detect') && !exists('b:git_dir')
-            call fugitive#detect(getcwd())
-            let head = FugitiveHead()
-        endif
     endif
     if !empty(head)
         let stat .= Color(active, 3, ' ← ') . head . ' '
