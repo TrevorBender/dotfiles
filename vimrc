@@ -67,8 +67,8 @@ set hlsearch        " hilight matches
 " }}}
 
 " Statusline {{{
-"set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
-"set laststatus=2
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+set laststatus=2
 "}}}
 
 " Wildmenu {{{
@@ -713,16 +713,16 @@ function! Status(winnr)
     " right side
     let stat .= '%='
     " git branch
-    "if exists('*FugitiveHead')
-        "let head = FugitiveHead()
-        "if empty(head) && exists('*fugitive#detect') && !exists('b:git_dir')
-            "call fugitive#detect(getcwd())
-            "let head = FugitiveHead()
-        "endif
-    "endif
-    "if !empty(head)
-        "let stat .= Color(active, 3, ' ← ') . head . ' '
-    "endif
+    if exists('*FugitiveHead')
+        let head = FugitiveHead()
+        if empty(head) && exists('*fugitive#detect') && !exists('b:git_dir')
+            call fugitive#detect(getcwd())
+            let head = FugitiveHead()
+        endif
+    endif
+    if !empty(head)
+        let stat .= Color(active, 3, ' ← ') . head . ' '
+    endif
     return stat
 endfunction
 " }}}

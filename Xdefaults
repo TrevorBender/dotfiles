@@ -1,12 +1,15 @@
+Xcursor.theme: Vanilla-DMZ
 
 !*background: #1b1d1e
 !*foreground: #AAAAAA
 
+Xft.antialias: 1
+Xft.autohint: 0
 Xft.dpi: 96
-Xft.antialias: true
-Xft.rgba: rgba
-Xft.hinting: true
+Xft.hinting: 1
 Xft.hintstyle: hintfull
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgba
 
 xterm*faceName: Inconsolata-9
 xterm*dynamicColors: true
