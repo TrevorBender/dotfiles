@@ -9,6 +9,8 @@ Plug 'preservim/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'sjl/splice.vim'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
 
 " Auto complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -653,6 +655,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>f :CocFix<cr>
 " }}}
 
 " HEX EDITOR: {{{
