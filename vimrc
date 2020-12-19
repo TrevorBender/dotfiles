@@ -2,6 +2,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -11,6 +12,8 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'sjl/splice.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
+Plug 'altercation/vim-colors-solarized'
+Plug 'mileszs/ack.vim'
 
 " Auto complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -119,6 +122,10 @@ set formatoptions+=j
 
 " Don't increment/decrement octal
 set nrformats-=octal
+
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
 
 " ctags {{{
 set tags=./tags;/
@@ -519,6 +526,11 @@ let vimclojure#WantNailgun = 1
 " }}}
 
 " COC {{{
+
+" Default extensions
+let g:coc_global_extensions = ['coc-tsserver', 'coc-json', 'coc-vimlsp', 'coc-css', 'coc-html', 'coc-go']
+
+let g:fzf_preview_window = ['up:50%:hidden', 'ctrl-/']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
